@@ -36,3 +36,21 @@ export const createCocktail = async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+export const getCocktailByName = async (req, res) => {
+  try {
+    const { name } = req.params
+    const cocktail = await Cocktail.find({
+      strDrink: { $regex: name, $options: "i" },
+    }).exec()
+
+    if (cocktail) {
+      return res.json(cocktail)
+    }
+
+    res.status(400).json({ message: "Cocktail not found!" })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
+}
