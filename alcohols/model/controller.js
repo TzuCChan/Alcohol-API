@@ -25,3 +25,14 @@ export const getCocktail = async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+export const createCocktail = async (req, res) => {
+  try {
+    const cocktail = new Cocktail(req.body)
+    await cocktail.save()
+    res.status(201).json(cocktail)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
+}
