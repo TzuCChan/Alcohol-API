@@ -54,3 +54,21 @@ export const getCocktailByName = async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+export const getCocktailsByGlass = async (req, res) => {
+  try {
+    const { glass } = req.params
+    const cocktail = await Cocktail.find({
+      strGlass: { $regex: glass, $options: "i" },
+    }).exec()
+
+    if (cocktail) {
+      return res.json(cocktail)
+    }
+
+    res.status(400).json({ message: "Cocktail not found!" })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
+}
