@@ -72,3 +72,9 @@ export const getCocktailsByGlass = async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+export const updateCocktail = async (req, res) => {
+  const { id } = req.params
+  const cocktail = await Cocktail.findByIdAndUpdate(id, req.body)
+  res.status(200).json(cocktail)
+}
