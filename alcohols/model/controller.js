@@ -78,3 +78,19 @@ export const updateCocktail = async (req, res) => {
   const cocktail = await Cocktail.findByIdAndUpdate(id, req.body)
   res.status(200).json(cocktail)
 }
+
+export const deleteCocktail = async (req, res) => {
+  try {
+    const { id } = req.params
+    const deleted = await Cocktail.findByIdAndDelete(id)
+
+    if (deleted) {
+      return res.status(200).send("Cocktail deleted!")
+    }
+
+    throw new Error("Cocktail not found")
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: error.message })
+  }
+}
