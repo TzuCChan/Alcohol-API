@@ -10,4 +10,11 @@ mongoose.set("debug", true)
 
 mongoose.set("returnOriginal", false)
 
+mongoose.connect(
+  MONGODB_URI,
+  mongooseConfig,
+  () => console.log(`success connected to the database`),
+  (err) => console.log(err)
+)
+
 export default mongoose.connection
